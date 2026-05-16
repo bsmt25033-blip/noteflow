@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Noteflow — Your Ideas, Organized</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-mark">✦</span>
+          <span class="logo-text">Noteflow</span>
+        </div>
+        <button class="sidebar-toggle" id="sidebarToggle">‹</button>
+      </div>
+      <div class="sidebar-actions">
+        <button class="btn-new" id="btnNew">
+          <span class="btn-icon">+</span>
+          <span>New Note</span>
+        </button>
+      </div>
+      <div class="search-wrap">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search notes…"/>
+        <span class="search-icon">⌕</span>
+      </div>
+      <nav class="nav-filters">
+        <button class="filter-btn active" data-filter="all">All Notes</button>
+        <button class="filter-btn" data-filter="pinned">📌 Pinned</button>
+        <button class="filter-btn" data-filter="archived">🗂 Archived</button>
+      </nav>
+      <div class="notes-list" id="notesList"></div>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar">A</div>
+          <div class="user-meta">
+            <span class="user-name">Admin User</span>
+            <span class="user-role">Free Plan</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="editor-area" id="editorArea">
+      <div class="editor-toolbar">
+        <div class="toolbar-left">
+          <button class="tool-btn" id="mobileMenuBtn">☰</button>
+          <div class="note-meta-display">
+            <span id="noteDate" class="note-date">—</span>
+          </div>
+        </div>
+        <div class="toolbar-center">
+          <button class="tool-btn" onclick="execCmd('bold')"><b>B</b></button>
+          <button class="tool-btn" onclick="execCmd('italic')"><i>I</i></button>
+          <button class="tool-btn" onclick="execCmd('underline')"><u>U</u></button>
+          <span class="divider">|</span>
+          <button class="tool-btn" onclick="execCmd('formatBlock','h1')">H1</button>
+          <button class="tool-btn" onclick="execCmd('formatBlock','h2')">H2</button>
+          <button class="tool-btn" onclick="execCmd('formatBlock','blockquote')">"</button>
+          <span class="divider">|</span>
+          <button class="tool-btn" onclick="execCmd('insertUnorderedList')">•—</button>
+          <button class="tool-btn" onclick="execCmd('insertOrderedList')">1.</button>
+          <span class="divider">|</span>
+          <button class="tool-btn" onclick="execCmd('undo')">↩</button>
+          <button class="tool-btn" onclick="execCmd('redo')">↪</button>
+        </div>
+        <div class="toolbar-right">
+          <button class="tool-btn" id="btnPin">📌</button>
+          <button class="tool-btn" id="btnArchive">🗂</button>
+          <button class="tool-btn danger" id="btnDelete">🗑</button>
+          <button class="btn-save" id="btnSave">Save</button>
+        </div>
+      </div>
+
+      <div class="editor-content" id="editorContent">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">✦</div>
+          <h2>Nothing selected</h2>
+          <p>Pick a note from the list, or create a new one.</p>
+          <button class="btn-new-lg" id="btnNewLg">Create your first note</button>
+        </div>
+        <div class="note-editor" id="noteEditor" style="display:none">
+          <input type="text" class="note-title-input" id="noteTitleInput" placeholder="Untitled Note…"/>
+          <div class="tag-row">
+            <input type="text" class="tag-input" id="tagInput" placeholder="Add tag + Enter"/>
+            <div class="tags-display" id="tagsDisplay"></div>
+          </div>
+          <div class="editor-body" id="editorBody" contenteditable="true" spellcheck="true"></div>
+          <div class="word-count" id="wordCount">0 words</div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal">
+      <div class="modal-icon">⚠️</div>
+      <h3>Delete this note?</h3>
+      <p>This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btnCancelDelete">Cancel</button>
+        <button class="btn-confirm-delete" id="btnConfirmDelete">Yes, delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
